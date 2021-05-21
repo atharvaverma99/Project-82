@@ -1,0 +1,110 @@
+<html>
+    <head>
+        <title>
+            Project 82
+        </title>
+    </head>
+    <body class="body_backgorund">
+        
+<div align="center">
+    <h1 style=" color: yellow;
+    font-size: 40px;
+    font-weight: bold;
+    font-size: 70px; 
+    background-color: purple;
+    margin-left: 80;
+    margin-right: 80;
+    font-family: 'Patrick Hand'">Paint</h1>
+    
+        <canvas id="myCanvas" width="800" height="400"></canvas>
+            <br><br >
+            <!--Additional activity -->
+        <span style="font-family: 'Patrick Hand';">Radius - </span>  
+        <input style="font-family: 'Patrick Hand';" type="text" id="radius" value=20>
+
+        <span style="font-family: 'Patrick Hand';">Color - </span>  
+        <input style="font-family: 'Patrick Hand';" type="text" id="color" value="Red">
+        
+        <span style="font-family: 'Patrick Hand';">Width Of the line  - </span>  
+        <input style="font-family: 'Patrick Hand';" type="text" id="width_of_line" value="2">
+        <br/>
+        <button style="font-family: 'Patrick Hand';" onclick="clearArea();">Clear Area</button>
+
+    </div>
+        <style>
+.body_background {
+    background-position: center;
+    background-size: cover;
+    font-family: 'Patrick Hand';
+  }
+  
+  #myCanvas {
+    border-width: 10px;
+    background-color: #FFFDE7;
+    border-style: ridge;
+  }
+  
+  span {
+    font-size: 20px;
+  }
+        </style>
+        <script>
+            var mouseEvent = "empty";
+
+
+    canvas = document.getElementById('myCanvas');
+    ctx = canvas.getContext("2d");
+    
+    color = "black";
+    eraser_color = "";
+    width_of_line = 2;
+    canvas.addEventListener("mousedown", my_mousedown);
+    
+    function my_mousedown(e)
+    {
+
+        color = document.getElementById("color").value;
+        width_of_line = document.getElementById("width_of_line").value;
+        radius = document.getElementById("radius").value;
+        mouseEvent = "mouseDown";
+    }
+
+    canvas.addEventListener("mousemove", my_mousemove);
+    function my_mousemove(e)
+    {
+        current_position_of_mouse_x = e.clientX - canvas.offsetLeft;
+        current_position_of_mouse_y = e.clientY - canvas.offsetTop;
+
+        if (mouseEvent == "mouseDown") {
+        console.log("Current position of x and y coordinates = ");
+        console.log("x  = " + current_position_of_mouse_x + "y = " + current_position_of_mouse_y);
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width_of_line;
+        ctx.arc(current_position_of_mouse_x, current_position_of_mouse_y, radius ,0 , 2 * Math.PI);
+        ctx.stroke();
+        }
+
+    }
+
+    canvas.addEventListener("mouseup", my_mouseup);
+    function my_mouseup(e)
+    {
+        mouseEvent = "mouseUP";
+    }
+
+    canvas.addEventListener("mouseleave", my_mouseleave);
+    function my_mouseleave(e)
+    {
+        mouseEvent = "mouseleave";
+    }
+
+
+//Additional Activity
+function clearArea() {
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+}
+
+        </script>
+    </body>
+</html>
